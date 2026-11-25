@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TPC · Catálogo de componentes</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&display=swap");
+
+/* ---------- Tokens (variables del Figma de TPC) ---------- */
+:root {
+  --color-primario: #0F6B6B;
+  --color-primario-hover: #0B5555;
+  --color-acento: #D8E83A;
+  --color-tinta: #12303A;
+  --color-texto-suave: #4F6670;
+  --color-fondo: #F2F6F7;
+  --color-superficie: #FFFFFF;
+  --color-borde: #C5D3D8;
+  --color-error: #B3261E;
+  --color-error-fondo: #FDECEA;
+  --color-desactivado-fondo: #E3E9EB;
+  --color-desactivado-texto: #8A9AA1;
+  --radio-sm: 8px;
+  --radio-md: 12px;
+  --radio-lg: 20px;
+  --fuente: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  background: var(--color-fondo);
+  color: var(--color-tinta);
+}
+
+/* ---------- Botón ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 22px;
+  border-radius: var(--radio-md);
+  border: 2px solid transparent;
+  font: 600 16px/1.25 var(--fuente);
+  cursor: pointer;
+}
+.btn--principal { background: var(--color-primario); color: var(--color-superficie); }
+.btn--principal:hover { background: var(--color-primario-hover); }
+.btn--secundario { background: transparent; color: var(--color-primario); border-color: var(--color-primario); }
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background: var(--color-desactivado-fondo);
+  color: var(--color-desactivado-texto);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+.btn:focus-visible { outline: 3px solid var(--color-acento); outline-offset: 2px; }
+
+/* ---------- Campo (Tipo × Estado) ---------- */
+.campo { display: flex; flex-direction: column; gap: 6px; width: 320px; max-width: 100%; }
+.campo__etiqueta { font: 600 15px/1.3 var(--fuente); color: var(--color-tinta); }
+.campo__control {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: 400 16px/1.3 var(--fuente);
+}
+.campo__control::placeholder { color: var(--color-texto-suave); }
+.campo__control:focus { outline: none; border-color: var(--color-primario); }
+.campo__ayuda { margin: 0; font: 400 13px/1.3 var(--fuente); color: var(--color-texto-suave); }
+.campo__error { display: none; margin: 0; font: 600 14px/1.3 var(--fuente); color: var(--color-error); }
+
+/* Estado = Error */
+.campo--error .campo__control { border-color: var(--color-error); background: var(--color-error-fondo); }
+.campo--error .campo__error { display: block; }
+.campo--error .campo__ayuda { display: none; }
+
+/* Tipo = Contraseña */
+.campo__envoltorio { position: relative; }
+.campo__envoltorio .campo__control { padding-right: 84px; }
+.campo__ver {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  border: 0; background: none; padding: 0;
+  font: 600 14px/1 var(--fuente); color: var(--color-primario); cursor: pointer;
+}
+
+/* Tipo = Desplegable */
+select.campo__control {
+  appearance: none;
+  padding-right: 44px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%230F6B6B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+/* ---------- Tarjeta de pista ---------- */
+.tarjeta-pista {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+  box-shadow: 0 8px 24px rgba(18, 48, 58, 0.10);
+}
+.tarjeta-pista__imagen { position: relative; height: 180px; background: var(--color-primario); }
+.tarjeta-pista__imagen::before {
+  content: "";
+  position: absolute; left: 38px; top: 40px; width: 244px; height: 124px;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+}
+.tarjeta-pista__imagen::after {
+  content: "";
+  position: absolute; left: 159px; top: 40px; width: 3px; height: 124px;
+  background: rgba(255, 255, 255, 0.85);
+}
+.tarjeta-pista__deporte {
+  position: absolute; left: 14px; top: 14px; z-index: 1;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--color-acento);
+  color: var(--color-tinta);
+  font: 700 13px/1.3 var(--fuente);
+}
+.tarjeta-pista__cuerpo { display: flex; flex-direction: column; gap: 14px; padding: 18px 20px 20px; }
+.tarjeta-pista__titulo { display: flex; flex-direction: column; gap: 2px; }
+.tarjeta-pista__nombre { margin: 0; font: 800 20px/1.2 var(--fuente); color: var(--color-tinta); }
+.tarjeta-pista__lugar { margin: 0; font: 400 14px/1.3 var(--fuente); color: var(--color-texto-suave); }
+.tarjeta-pista__pie { display: flex; align-items: center; justify-content: space-between; }
+.tarjeta-pista__precio { display: flex; flex-direction: column; gap: 4px; margin: 0; font: 800 24px/1 var(--fuente); color: var(--color-tinta); }
+.tarjeta-pista__precio small { font: 400 12px/1 var(--fuente); color: var(--color-texto-suave); }
+
+/* ---------- Página del catálogo ---------- */
+.catalogo { max-width: 1200px; margin: 0 auto; padding: 48px; display: flex; flex-direction: column; gap: 48px; }
+.catalogo h1 { margin: 0 0 10px; font: 800 44px/1.1 var(--fuente); }
+.catalogo h2 { margin: 0 0 16px; padding-bottom: 6px; display: inline-block; font: 800 24px/1.2 var(--fuente); border-bottom: 3px solid var(--color-acento); }
+.catalogo p.intro { margin: 0; color: var(--color-texto-suave); }
+.catalogo__muestra {
+  display: flex; flex-wrap: wrap; gap: 24px; padding: 24px;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+}
+
+@media (max-width: 640px) {
+  .catalogo { padding: 24px 16px; }
+  .catalogo h1 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+<main class="catalogo">
+  <header>
+    <h1>TPC · Catálogo de componentes</h1>
+    <p class="intro">Botones, campos de formulario y tarjeta de pista de «Tus Pistas de Confi». Los valores salen de las variables del Figma de TPC.</p>
+  </header>
+
+  <section>
+    <h2>Botones</h2>
+    <div class="catalogo__muestra">
+      <button class="btn btn--principal" type="button">Reservar pista</button>
+      <button class="btn btn--secundario" type="button">Reservar pista</button>
+      <button class="btn btn--principal" type="button" disabled>Reservar pista</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Campos de formulario</h2>
+    <div class="catalogo__muestra">
+
+      <div class="campo">
+        <label class="campo__etiqueta" for="nombre1">Nombre completo</label>
+        <input class="campo__control" id="nombre1" type="text" placeholder="Carlos Mendoza">
+        <p class="campo__ayuda">Como aparece en tu DNI.</p>
+      </div>
+
+      <div class="campo campo--error">
+        <label class="campo__etiqueta" for="nombre2">Nombre completo</label>
+        <input class="campo__control" id="nombre2" type="text" aria-invalid="true" aria-describedby="nombre2-error">
+        <p class="campo__ayuda">Como aparece en tu DNI.</p>
+        <p class="campo__error" id="nombre2-error">Escribe tu nombre para poder reservar.</p>
+      </div>
+
+      <div class="campo">
+        <label class="campo__etiqueta" for="clave1">Contraseña</label>
+        <div class="campo__envoltorio">
+          <input class="campo__control" id="clave1" type="password" value="usuario1234">
+          <button class="campo__ver" type="button" data-ver="clave1">Mostrar</button>
+        </div>
+        <p class="campo__ayuda">Mínimo 8 caracteres.</p>
+      </div>
+
+      <div class="campo campo--error">
+        <label class="campo__etiqueta" for="clave2">Contraseña</label>
+        <div class="campo__envoltorio">
+          <input class="campo__control" id="clave2" type="password" value="abc" aria-invalid="true" aria-describedby="clave2-error">
+          <button class="campo__ver" type="button" data-ver="clave2">Mostrar</button>
+        </div>
+        <p class="campo__ayuda">Mínimo 8 caracteres.</p>
+        <p class="campo__error" id="clave2-error">Usa al menos 8 caracteres.</p>
+      </div>
+
+      <div class="campo">
+        <label class="campo__etiqueta" for="deporte1">Deporte</label>
+        <select class="campo__control" id="deporte1">
+          <option value="">Elige un deporte</option>
+          <option>Pádel</option>
+          <option>Tenis</option>
+          <option>Fútbol 7</option>
+          <option>Fútbol Sala</option>
+          <option>Baloncesto</option>
+          <option>Voleibol</option>
+        </select>
+        <p class="campo__ayuda">Filtraremos las pistas disponibles.</p>
+      </div>
+
+      <div class="campo campo--error">
+        <label class="campo__etiqueta" for="deporte2">Deporte</label>
+        <select class="campo__control" id="deporte2" aria-invalid="true" aria-describedby="deporte2-error">
+          <option value="">Elige un deporte</option>
+          <option>Pádel</option>
+          <option>Tenis</option>
+        </select>
+        <p class="campo__ayuda">Filtraremos las pistas disponibles.</p>
+        <p class="campo__error" id="deporte2-error">Elige un deporte para ver pistas.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Tarjeta de pista</h2>
+    <div class="catalogo__muestra">
+
+      <article class="tarjeta-pista">
+        <div class="tarjeta-pista__imagen"><span class="tarjeta-pista__deporte">Pádel</span></div>
+        <div class="tarjeta-pista__cuerpo">
+          <div class="tarjeta-pista__titulo">
+            <h3 class="tarjeta-pista__nombre">Pista Pádel 01</h3>
+            <p class="tarjeta-pista__lugar">Supera Entrepuentes, Sevilla</p>
+          </div>
+          <div class="tarjeta-pista__pie">
+            <p class="tarjeta-pista__precio">16 € <small>por hora</small></p>
+            <button class="btn btn--principal" type="button">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-pista">
+        <div class="tarjeta-pista__imagen"><span class="tarjeta-pista__deporte">Fútbol 7</span></div>
+        <div class="tarjeta-pista__cuerpo">
+          <div class="tarjeta-pista__titulo">
+            <h3 class="tarjeta-pista__nombre">Campo Fútbol 7 Norte</h3>
+            <p class="tarjeta-pista__lugar">La Cartuja (IMD), Sevilla</p>
+          </div>
+          <div class="tarjeta-pista__pie">
+            <p class="tarjeta-pista__precio">48 € <small>por hora</small></p>
+            <button class="btn btn--principal" type="button">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="tarjeta-pista">
+        <div class="tarjeta-pista__imagen"><span class="tarjeta-pista__deporte">Baloncesto</span></div>
+        <div class="tarjeta-pista__cuerpo">
+          <div class="tarjeta-pista__titulo">
+            <h3 class="tarjeta-pista__nombre">Pista Baloncesto Cubierta 02</h3>
+            <p class="tarjeta-pista__lugar">San Pablo (IMD), Sevilla</p>
+          </div>
+          <div class="tarjeta-pista__pie">
+            <p class="tarjeta-pista__precio">25 € <small>por hora</small></p>
+            <button class="btn btn--principal" type="button" disabled>Completa</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+<script>
+  // Botón «Mostrar / Ocultar» de los campos de contraseña
+  document.querySelectorAll('[data-ver]').forEach(function (boton) {
+    boton.addEventListener('click', function () {
+      var campo = document.getElementById(boton.dataset.ver);
+      var visible = campo.type === 'text';
+      campo.type = visible ? 'password' : 'text';
+      boton.textContent = visible ? 'Mostrar' : 'Ocultar';
+    });
+  });
+</script>
+</body>
+</html>
